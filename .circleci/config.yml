@@ -13,7 +13,7 @@ jobs:
           node-version: '16.13'
       - run:
           name: Setup Environment
-          command: yarn install
+          command: yarn && yarn install
       - run:
           name: Run tests
           command: yarn jest --reporters github-actions summary
