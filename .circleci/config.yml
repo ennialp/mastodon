@@ -15,39 +15,12 @@ jobs:
           command: |
             corepack enable
             yarn set version 4.3.1
-            yarn install
-
-  build:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - checkout
-      - run:
-          name: Build an artifact
-          command: touch example.txt
-      - store_artifacts:
-          path: example.txt
-
-  deploy:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - run:
-          name: deploy
-          command: "#e.g. ./deploy.sh"
+            yarn && yarn install
+      - node/test:
+          pkg-manager: yarn
+          test-results-for: jest
 
 workflows:
   main:
     jobs:
       - setup-js
-      - node/test:
-          requires:
-            - setup-js
-          test-results-for: jest
-          pkg-manager: yarn
-      - build:
-          requires:
-            - node/test
-      - deploy:
-          requires:
-            - build
