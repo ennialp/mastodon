@@ -28,5 +28,7 @@ workflows:
           requires:
             - setup-js
           setup:
-            - corepack enable
-            - yarn set version 4.3.1
+            - run:
+                command: corepack enable
+            - run:
+                command: yarn set version 4.3.1
