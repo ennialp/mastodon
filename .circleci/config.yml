@@ -38,7 +38,7 @@ workflows:
       - test-js
       - build:
           requires:
-            - test
+            - test-js
       - deploy:
           requires:
-            - test
+            - test-js
