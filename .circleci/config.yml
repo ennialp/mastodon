@@ -8,14 +8,15 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: yarn-berry
+      - node/install:
+          npm-version: '18.12.0'
       - run:
           name: Install yarn
           command: |
             corepack enable
             yarn set version 4.3.1
-            yarn && yarn install
+      - node/install-packages:
+          pkg-manager: yarn-berry
 
 workflows:
   main:
