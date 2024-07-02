@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  node: circleci/node@5.2.0
 
 jobs:
   test-js:
@@ -6,9 +8,12 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
+      - node/install:
+          install-yarn: true
+          node-version: '16.13'
       - run:
           name: Setup Environment
-          command: ./.github/actions/setup-javascript
+          command: yarn install
       - run:
           name: Run tests
           command: yarn jest --reporters github-actions summary
