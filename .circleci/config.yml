@@ -16,11 +16,13 @@ jobs:
             corepack enable
             yarn set version 4.3.1
             yarn && yarn install
-      - node/test:
-          pkg-manager: yarn
-          test-results-for: jest
 
 workflows:
   main:
     jobs:
       - setup-js
+      - node/test:
+          requires:
+            - setup-js
+          pkg-manager: yarn
+          test-results-for: jest
