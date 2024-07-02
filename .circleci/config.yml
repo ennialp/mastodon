@@ -8,8 +8,8 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
-      - node/install:
-          node-version: '18.12.0'
+      - node/install-packages:
+          pkg-manager: yarn-berry
       - run:
           name: Install yarn
           command: |
@@ -22,7 +22,7 @@ workflows:
     jobs:
       - setup-js
       - node/test:
-          requires:
-            - setup-js
           pkg-manager: yarn
           test-results-for: jest
+          requires:
+            - setup-js
