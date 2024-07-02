@@ -3,7 +3,7 @@ orbs:
   node: circleci/node@5.2.0
 
 jobs:
-  test-js:
+  setup-js:
     docker:
       - image: cimg/base:current
     steps:
@@ -11,12 +11,7 @@ jobs:
       - node/install:
           install-yarn: true
           node-version: '16.13'
-      - run:
-          name: Setup Environment
-          command: yarn && yarn install
-      - run:
-          name: Run tests
-          command: yarn jest --reporters github-actions summary
+          yarn-version: '4.3.1'
 
   build:
     docker:
@@ -38,12 +33,16 @@ jobs:
           command: "#e.g. ./deploy.sh"
 
 workflows:
-  example:
+  main:
     jobs:
-      - test-js
+      - setup-js
+      - node/test:
+          requires:
+            - setup-js
+          test-results-for: jest
       - build:
           requires:
-            - test-js
+            - node/test
       - deploy:
           requires:
-            - test-js
+            - node/test
