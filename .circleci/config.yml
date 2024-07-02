@@ -23,7 +23,7 @@ workflows:
     jobs:
       - setup-js
       - node/test:
-          pkg-manager: yarn
+          pkg-manager: yarn-berry
           test-results-for: jest
           requires:
             - setup-js
