@@ -27,6 +27,6 @@ workflows:
           test-results-for: jest
           requires:
             - setup-js
-          setup: |
-            corepack enable
-            yarn set version 4.3.1
+          setup:
+            - corepack enable
+            - yarn set version 4.3.1
